@@ -1,0 +1,70 @@
+# Laravel & PHP
+/vendor/
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment & Configuration
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+
+# IDE & Editor
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Storage & Cache
+/storage/*.key
+/storage/debugbar/
+/storage/logs/*.log
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+
+# Public uploads and generated files
+/public/uploads/*
+!/public/uploads/.gitignore
+/public/build/
+/public/hot
+/public/storage
+
+# Composer & Dependencies
+composer.lock
+auth.json
+
+# Testing
+/phpunit.xml
+/phpunit.result.cache
+/.phpunit.cache
+
+# NPM & Frontend
+package-lock.json
+yarn.lock
+
+# Debug & Profiling
+php_cs.cache
+.php-cs-fixer.cache
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Backup files
+*.sql
+*.backup
+*.bak
+
+# Database seeders
+/database/seeders/
+
+# Specific vendor mocks (original entry)
+/vendor/srmklive/paypal/tests/Mocks/samples

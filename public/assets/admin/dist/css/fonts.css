@@ -1,0 +1,82 @@
+/* 
+ * Bilingual Font Configuration for Admin Panel
+ * Supports Arabic and English with icon preservation
+ */
+
+/* Import Google Fonts for Bilingual Support */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Base font family configuration */
+body {
+    font-family: 'Inter', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Arabic text - use Tajawal as primary */
+html[lang="ar"] body,
+html[dir="rtl"] body,
+[lang="ar"],
+[dir="rtl"] {
+    font-family: 'Tajawal', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* English text - use Inter as primary */
+html[lang="en"] body,
+html[dir="ltr"] body,
+[lang="en"],
+[dir="ltr"] {
+    font-family: 'Inter', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Preserve Tabler icons - CRITICAL */
+.ti, [class^="ti-"], [class*=" ti-"],
+i.ti, i[class^="ti-"], i[class*=" ti-"] {
+    font-family: 'tabler-icons' !important;
+}
+
+/* Preserve Font Awesome icons - CRITICAL */
+.fa, .fas, .far, .fal, .fab, .fad, .fa-solid, .fa-regular, .fa-light, .fa-thin, .fa-duotone, .fa-brands,
+[class^="fa-"], [class*=" fa-"],
+i.fa, i.fas, i.far, i.fal, i.fab, i.fad,
+i[class^="fa-"], i[class*=" fa-"] {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 6 Brands", "FontAwesome" !important;
+}
+
+/* Preserve other icon fonts */
+.fi, [class^="fi-"], [class*=" fi-"] {
+    font-family: 'uicons-regular-straight', 'uicons-solid-straight' !important;
+}
+
+/* Headings font configuration */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 700;
+}
+
+/* Arabic headings - slightly bolder */
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3,
+html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6,
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3,
+html[dir="rtl"] h4, html[dir="rtl"] h5, html[dir="rtl"] h6,
+[lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3,
+[lang="ar"] h4, [lang="ar"] h5, [lang="ar"] h6,
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+    font-weight: 800;
+}
+
+/* Input and form elements */
+input, textarea, select, button {
+    font-family: inherit;
+}
+
+/* Code and monospace elements should keep their font */
+code, kbd, pre, samp {
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Ensure proper font smoothing */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

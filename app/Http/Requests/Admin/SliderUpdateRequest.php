@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Requests\Admin;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class SliderUpdateRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'image' => ['nullable', 'image', 'max:2048'],
+            'title' => ['required', 'string', 'max:255'],
+            'sub_title' => ['required', 'string', 'max:255'],
+            'btn_url' => ['nullable', 'string', 'max:255']
+        ];
+    }
+}
