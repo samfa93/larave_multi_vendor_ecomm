@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
- 
+
 <head>
     <meta charset="utf-8" />
     <title>ShopX - Multipurpose eCommerce HTML Template</title>
