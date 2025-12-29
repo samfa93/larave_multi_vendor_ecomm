@@ -112,6 +112,11 @@ return [
     
     // Filters & Sorting
     'filter' => 'Filter',
+    'filter_by_price' => 'Filter by price',
+    'from' => 'From',
+    'to' => 'To',
+    'brands' => 'Brands',
+    'tags' => 'Tags',
     'sort_by' => 'Sort By',
     'price_low_to_high' => 'Price: Low to High',
     'price_high_to_low' => 'Price: High to Low',
@@ -121,6 +126,13 @@ return [
     'featured' => 'Featured',
     'show' => 'Show',
     'per_page' => 'Per Page',
+    'sku' => 'SKU',
+    'tags' => 'Tags',
+    'unlimited' => 'Unlimited',
+    'items_in_stock' => 'items in stock',
+    'stock' => 'Stock',
+    'description' => 'Description',
+    'vendor' => 'Vendor',
     
     // Reviews & Ratings
     'reviews' => 'Reviews',
@@ -139,7 +151,6 @@ return [
     'order_confirmation' => 'Order Confirmation',
     'thank_you_for_order' => 'Thank you for your order!',
     
-    // Product Pages
     'we_found' => 'We found',
     'items_for_you' => 'items for you',
     'no_products_found' => 'No products found',

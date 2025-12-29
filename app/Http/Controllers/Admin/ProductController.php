@@ -60,6 +60,7 @@ class ProductController extends Controller implements HasMiddleware
 
         $product = new Product();
         $product->name = $request->name;
+        $product->name_ar = $request->name_ar;
         $product->slug = $request->slug;
         $product->product_type = $type;
         $product->short_description = $request->short_description;
@@ -282,6 +283,7 @@ class ProductController extends Controller implements HasMiddleware
     {
         $product = Product::findOrFail($id);
         $product->name = $request->name;
+        $product->name_ar = $request->name_ar;
         $product->slug = $request->slug;
         $product->short_description = $request->short_description;
         $product->description = $request->content;

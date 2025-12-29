@@ -16,6 +16,7 @@ class ProductUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'name_ar' => ['nullable', 'string', 'max:255'],
             'short_description' => ['nullable', 'string', 'max:2000'],
             'content' => ['required', 'string'],
             'sku' => ['nullable', 'string', 'max:255'],

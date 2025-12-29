@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('contents')
-    <x-frontend.breadcrumb :items="[['label' => 'Home', 'url' => '/'], ['label' => 'Products']]" />
+    <x-frontend.breadcrumb :items="[['label' => __('messages.home'), 'url' => '/'], ['label' => __('messages.products')]]" />
     <div class="container mb-30">
         <div class="row">
             <div class="col-xl-12">
@@ -30,13 +30,13 @@
                         </div>
                         <div class="col-md-6 col-lg-7 col-sm-12 col-xs-12">
                             <div class="detail-info pr-30 pl-30">
-                                <h2 class="title-detail">{{ $product->name }}</h2>
+                                <h2 class="title-detail">{{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name }}</h2>
                                 <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: {{ ratingPercent($product->reviews_avg_rating) }}%"></div>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> ({{ $product->reviews_count }} reviews)</span>
+                                        <span class="font-small ml-5 text-muted"> ({{ $product->reviews_count }} {{ __('messages.reviews') }})</span>
                                     </div>
                                 </div>
                                 <div class="clearfix product-price-cover">
@@ -118,7 +118,7 @@
                                     <div class="product-extra-link2">
                                         <button type="submit" data-variant="" data-id="{{ $product->id }}"
                                             data-modal="false" class="button button-add-to-cart add_to_cart"><i
-                                                class="fi-rs-shopping-cart"></i>Add to cart</button>
+                                                class="fi-rs-shopping-cart"></i>{{ __('messages.add_to_cart') }}</button>
                                         <a aria-label="Add To Wishlist" class="action-btn hover-up wishlist-btn" data-id="{{ $product->id }}"
                                             href="" ><i class="fi-rs-heart"></i></a>
 
@@ -126,28 +126,28 @@
                                 </div>
                                 <div class="font-xs">
 
-                                    <ul class="float-start">
-                                        <li class="mb-5">SKU: <a href="javascript:;" class="sku">
+                                    <ul class="{{ app()->getLocale() == 'ar' ? 'float-end' : 'float-start' }}">
+                                        <li class="mb-5">{{ __('messages.sku') }}: <a href="javascript:;" class="sku">
                                                 @if ($product?->primaryVariant)
                                                     {{ $product?->primaryVariant?->sku }}
                                                 @else
                                                     {{ $product->sku }}
                                                 @endif
                                             </a></li>
-                                        <li class="mb-5">Tags:
+                                        <li class="mb-5">{{ __('messages.tags') }}:
                                             @foreach ($product->tags as $tag)
                                                 <a href="#" rel="tag">{{ $tag->name }}</a>
                                                 {{ $loop->last ? '' : ', ' }}
                                             @endforeach
                                         </li>
-                                        <li>Stock:<span class="in-stock text-brand ml-5"><span class="stock-qty">
+                                        <li>{{ __('messages.stock') }}:<span class="in-stock text-brand ml-5"><span class="stock-qty">
                                                     @if ($product->manage_stock == 1)
                                                         {{ $product->qty }}
                                                     @else
-                                                        Unlimited
+                                                        {{ __('messages.unlimited') }}
                                                     @endif
                                                 </span>
-                                                Items In Stock</span>
+                                                {{ __('messages.items_in_stock') }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -160,15 +160,15 @@
                             <ul class="nav nav-tabs text-uppercase">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
-                                        href="#Description">Description</a>
+                                        href="#Description">{{ __('messages.description') }}</a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab"
-                                        href="#Vendor-info">Vendor</a>
+                                        href="#Vendor-info">{{ __('messages.vendor') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews
+                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">{{ __('messages.reviews') }}
                                         ({{ $product->reviews_count }})</a>
                                 </li>
                             </ul>

@@ -14023,3 +14023,30 @@ textarea.form-control {
     margin-left: 10px;
     margin-right: 0px;
 }
+
+[dir="rtl"] .section-title.style-1::after{
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .detail-qty>a {
+    left: 8px;
+    right: auto;
+}
+
+[dir="rtl"] .product-extra-link2 .button.button-add-to-cart i {
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+[dir="rtl"] .contact-infor li {
+    padding-right: 25px;
+    padding-left: auto;
+}
+
+[dir="rtl"] .contact-infor li img {
+    margin-right: auto;
+    margin-left: 8px;
+    left: auto;
+    right: 0;
+}

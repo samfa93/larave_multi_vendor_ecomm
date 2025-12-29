@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('contents')
-    <x-frontend.breadcrumb :items="[['label' => 'Home', 'url' => '/'], ['label' => 'Products']]" />
+    <x-frontend.breadcrumb :items="[['label' => __('messages.home'), 'url' => '/'], ['label' => __('messages.products')]]" />
     <div class="container mt-70 mb-60">
         <div class="row">
 
@@ -10,7 +10,7 @@
             <div class="col-lg-9 col-xxl-10">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">{{ $products->total() }}</strong> items for you!</p>
+                        <p>{{ __('messages.we_found') }} <strong class="text-brand">{{ $products->total() }}</strong> {{ __('messages.items_for_you') }}</p>
                     </div>
                     <div class="sort-by-product-area">
                         {{-- <div class="sort-by-cover mr-10">
@@ -57,7 +57,7 @@
                     @forelse($products as $product)
                         <x-frontend.product-card :product="$product" />
                     @empty
-                        <p>No product found</p>
+                        <p>{{ __('messages.no_products_found') }}</p>
                     @endforelse
                 </div>
                 <!--product grid-->

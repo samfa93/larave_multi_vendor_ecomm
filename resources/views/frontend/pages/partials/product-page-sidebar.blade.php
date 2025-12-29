@@ -1,30 +1,34 @@
             <div class="col-lg-3 col-xxl-2 primary-sidebar sticky-sidebar">
 
-                <div class="sidebar_filter d-lg-none">filter</div>
+                <div class="sidebar_filter d-lg-none">{{ __('messages.filter') }}</div>
 
                 <div class="sidebar_wraper">
                     <div class="sidebar-widget widget-category-2 mb-30">
-                        <h5 class="section-title style-1 mb-30">Category</h5>
+                        <h5 class="section-title style-1 mb-30">{{ __('messages.categories') }}</h5>
 
                         <ul class="main_category">
                             {{-- @dd($categories) --}}
                             @foreach ($categories as $category)
                                 <li class="{{ request()->category == $category->slug ? 'active' : '' }}">
-                                    <a href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}
+                                    <a href="{{ route('products.index', ['category' => $category->slug]) }}">
+                                        {{ app()->getLocale() == 'ar' ? $category->name_ar : $category->name }}
                                     </a>
+
                                     @if ($category->children_nested->count() > 0)
                                         <ul class="sub_category">
                                             @foreach ($category->children_nested as $child)
                                                 <li class="{{ request()->category == $child->slug ? 'active' : '' }}">
-                                                    <a
-                                                        href="{{ route('products.index', ['category' => $child->slug]) }}">{{ $child->name }}</a>
+                                                    <a href="{{ route('products.index', ['category' => $child->slug]) }}">
+                                                        {{ app()->getLocale() == 'ar' ? $child->name_ar : $child->name }}
+                                                    </a>
+
                                                     @if ($child->children_nested->count() > 0)
                                                         <ul class="child_category">
                                                             @foreach ($child->children_nested as $subchild)
-                                                                <li
-                                                                    class="{{ request()->category == $subchild->slug ? 'active' : '' }}">
-                                                                    <a
-                                                                        href="{{ route('products.index', ['category' => $subchild->slug]) }}">{{ $subchild->name }}</a>
+                                                                <li class="{{ request()->category == $subchild->slug ? 'active' : '' }}">
+                                                                    <a href="{{ route('products.index', ['category' => $subchild->slug]) }}">
+                                                                        {{ app()->getLocale() == 'ar' ? $subchild->name_ar : $subchild->name }}
+                                                                    </a>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -39,7 +43,7 @@
                     </div>
                     <!-- Fillter By Price -->
                     <div class="sidebar-widget price_range range mb-30">
-                        <h5 class="section-title style-1 mb-30">Fill by price</h5>
+                        <h5 class="section-title style-1 mb-30">{{ __('messages.filter_by_price') }}</h5>
                         <form action="{{ url()->current() }}" method="get">
                             @if(request('category'))
                                 <input type="hidden" name="category" value="{{ request('category') }}">
@@ -48,10 +52,10 @@
                                 <div class="price-filter-inner">
                                     <div id="slider-range" class="mb-20"></div>
                                     <div class="d-flex justify-content-between">
-                                        <div class="caption">From: <strong id="slider-range-value1"
+                                        <div class="caption">{{ __('messages.from') }}: <strong id="slider-range-value1"
                                                 class="text-brand"></strong>
                                         </div>
-                                        <div class="caption">To: <strong id="slider-range-value2"
+                                        <div class="caption">{{ __('messages.to') }}: <strong id="slider-range-value2"
                                                 class="text-brand"></strong>
                                         </div>
                                     </div>
@@ -61,7 +65,7 @@
                             </div>
                             <div class="list-group">
                                 <div class="list-group-item mb-10 mt-10">
-                                    <label class="fw-900">Brands</label>
+                                    <label class="fw-900">{{ __('messages.brands') }}</label>
                                     <div class="custome-checkbox">
                                         @foreach ($brands as $brand)
                                             <input @checked(in_array($brand->id, request('brands') ?? [])) class="form-check-input" type="checkbox"
@@ -74,7 +78,7 @@
                                             <br />
                                         @endforeach
                                     </div>
-                                    <label class="fw-900 mt-15">Tags</label>
+                                    <label class="fw-900 mt-15">{{ __('messages.tags') }}</label>
                                     <div class="custome-checkbox">
                                         @foreach ($tags as $tag)
                                             <input @checked(in_array($tag->id, request('tags') ?? [])) class="form-check-input" type="checkbox"
@@ -92,7 +96,7 @@
                             </div>
                             <button type="submit" href="shop-grid-right.html" class="btn btn-sm btn-default"><i
                                     class="fi-rs-filter mr-5"></i>
-                                Filter</button>
+                                {{ __('messages.filter') }}</button>
                         </form>
                     </div>
 

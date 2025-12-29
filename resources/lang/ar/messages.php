@@ -54,6 +54,13 @@ return [
     'update_cart' => 'تحديث السلة',
     'continue_shopping' => 'متابعة التسوق',
     'proceed_to_checkout' => 'إتمام الطلب',
+    'sku' => 'رمز المنتج',
+    'tags' => 'الوسوم',
+    'unlimited' => 'غير محدود',
+    'items_in_stock' => 'عنصر في المخزون',
+    'stock' => 'المخزون',
+    'description' => 'الوصف',
+    'vendor' => 'البائع',
     
     // الصفحة الرئيسية
     'welcome_to' => 'مرحبا في',
@@ -112,6 +119,11 @@ return [
     
     // الفلاتر والترتيب
     'filter' => 'تصفية',
+    'filter_by_price' => 'تصفية حسب السعر',
+    'from' => 'من',
+    'to' => 'إلى',
+    'brands' => 'الماركات',
+    'tags' => 'الوسوم',
     'sort_by' => 'ترتيب حسب',
     'price_low_to_high' => 'السعر: من الأقل إلى الأعلى',
     'price_high_to_low' => 'السعر: من الأعلى إلى الأقل',

@@ -16,43 +16,73 @@
         </div>
     </div>
 
-    <div class="header-top header-top-ptb-1 d-none d-lg-block">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xxl-3 col-xl-4 col-lg-7">
-                    <div class="header-info">
-                        <ul>
-                            <li><a href="{{ route('dashboard') }}">{{ __('messages.my_account') }}</a></li>
-                            <li><a href="{{ route('wishlist.index') }}">{{ __('messages.wishlist') }}</a></li>
-                            <li><a href="{{ route('track.order.index') }}">{{ __('messages.order_tracking') }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xxl-6 col-xl-5 col-lg-4 d-none d-xl-block">
-                    <div class="text-center">
-                        <div id="news-flash" class="d-inline-block">
-                            <ul>
-                                @foreach ($offerSliders as $offerSlider)
-                                    <li><a href="{{ $offerSlider->url }}"
-                                            class="text-dark">{{ $offerSlider->title }}</a></li>
-                                @endforeach
+    {{-- Optional: show only on lg+ like your original --}}
+    <div class="d-none d-lg-block border-bottom bg-body">
+        <div class="container py-2">
+            <div class="row align-items-center g-2">
 
-                            </ul>
+                {{-- Left: account / wishlist / tracking --}}
+                <div class="col-lg-6 col-xl-5">
+                    <ul class="list-inline mb-0 small {{ app()->getLocale() == 'ar' ? 'text-end' : 'text-start' }}">
+                        <li class="list-inline-item">
+                            <a class="text-decoration-none link-secondary" href="{{ route('dashboard') }}">
+                                {{ __('messages.my_account') }}
+                            </a>
+                        </li>
+                        <li class="list-inline-item ms-3">
+                            <a class="text-decoration-none link-secondary" href="{{ route('wishlist.index') }}">
+                                {{ __('messages.wishlist') }}
+                            </a>
+                        </li>
+                        <li class="list-inline-item ms-3">
+                            <a class="text-decoration-none link-secondary" href="{{ route('track.order.index') }}">
+                                {{ __('messages.order_tracking') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {{-- Center: offers (simple scrolling fallback; no custom JS required) --}}
+                <div class="col-xl-4 d-none d-xl-block">
+                    <div class="text-center small">
+                        <div class="d-inline-block text-truncate" style="max-width: 100%;">
+                            {{-- If you want a ticker effect, keep JS elsewhere. This is Bootstrap-only display. --}}
+                            @foreach ($offerSliders as $offerSlider)
+                                <a class="text-decoration-none link-dark me-3"
+                                href="{{ $offerSlider->url }}">
+                                    {{ $offerSlider->title }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-xl-3 col-lg-5">
-                    <div class="header-info header-info-right">
-                        <ul>
-                                <li>{{ __('messages.need_help_call') }} <strong class="text-brand">
-                                    {{ config('settings.site_phone') }}</strong></li>
-                                    <li>
-                                    <a href="{{ route('lang.switch', 'en') }}">{{ __('messages.language_en') }}</a> |
-                                    <a href="{{ route('lang.switch', 'ar') }}">{{ __('messages.language_ar') }}</a>
-                                </li>
-                        </ul>
+
+                {{-- Right: phone + language --}}
+                <div class="col-lg-6 col-xl-3">
+                    <div class="d-flex flex-wrap justify-content-lg-end align-items-center gap-2 small text-end">
+
+                        <div class="text-nowrap">
+                            {{ __('messages.need_help_call') }}
+                            <strong>{{ config('settings.site_phone') }}</strong>
+                        </div>
+
+                        <span class="d-none d-lg-inline border-start ps-2"></span>
+
+                        <div class="text-nowrap">
+                            <a class="text-decoration-none link-secondary"
+                            href="{{ route('lang.switch', 'en') }}">
+                                {{ __('messages.language_en') }}
+                            </a>
+                            <span class="mx-1">|</span>
+                            <a class="text-decoration-none link-secondary"
+                            href="{{ route('lang.switch', 'ar') }}">
+                                {{ __('messages.language_ar') }}
+                            </a>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -183,25 +213,28 @@
                             <div class="d-flex categori-dropdown-inner">
                                 <ul>
                                     @foreach (getNestedCategories() as $category)
-                                        @if($loop->iteration <= 11)
+                                        @if ($loop->iteration <= 11)
                                         <li>
                                             <a href="{{ route('products.index', ['category' => $category->slug]) }}">
                                                 <img src="{{ asset($category->icon) }}" alt="" />
-                                                <span>{{ $category->name }}</span>
+                                                <span>{{ app()->getLocale() == 'ar' ? $category->name_ar : $category->name }}</span>
                                             </a>
+
                                             @if (count($category->children_nested) > 0)
                                                 <ul>
                                                     @foreach ($category->children_nested as $child)
-                                                        <li
-                                                            class="{{ count($child->children_nested) > 0 ? '' : 'no_child' }}">
-                                                            <a
-                                                                href="{{ route('products.index', ['category' => $child->slug]) }}">{{ $child->name }}</a>
+                                                        <li class="{{ count($child->children_nested) > 0 ? '' : 'no_child' }}">
+                                                            <a href="{{ route('products.index', ['category' => $child->slug]) }}">
+                                                                {{ app()->getLocale() == 'ar' ? $child->name_ar : $child->name }}
+                                                            </a>
+
                                                             @if (count($child->children_nested) > 0)
                                                                 <ul>
                                                                     @foreach ($child->children_nested as $subchild)
                                                                         <li class="no_child">
-                                                                            <a
-                                                                                href="{{ route('products.index', ['category' => $subchild->slug]) }}">{{ $subchild->name }}</a>
+                                                                            <a href="{{ route('products.index', ['category' => $subchild->slug]) }}">
+                                                                                {{ app()->getLocale() == 'ar' ? $subchild->name_ar : $subchild->name }}
+                                                                            </a>
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>

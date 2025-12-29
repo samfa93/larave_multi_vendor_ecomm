@@ -114,6 +114,14 @@
 
                             <div class="col-md-12">
                                 <div class="mb-3">
+                                    <label class="form-label">Name (Arabic)</label>
+                                    <input type="text" class="form-control" name="name_ar" id="name_ar" placeholder="" value="">
+                                    <x-input-error :messages="$errors->get('name_ar')" class="mt-2" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="mb-3">
                                     <label class="form-label required">Slug</label>
                                     <input type="text" class="form-control" name="slug" id="slug" placeholder="" value="">
                                     <x-input-error :messages="$errors->get('slug')" class="mt-2" />

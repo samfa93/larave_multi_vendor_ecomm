@@ -4,7 +4,7 @@
     </figure>
     <div class="col-sm-8 mb-0">
         <h6>
-            <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
+            <a href="{{ route('products.show', $product->slug) }}">{{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name }}</a>
         </h6>
         <div class="product-rate-cover">
             <div class="product-rate d-inline-block">

@@ -37,7 +37,11 @@
             <div class="product-category">
                 {{-- <a href="shop-grid-right.html">{{ $product->category->name }}</a> --}}
             </div>
-            <h2><a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a></h2>
+            <h2>
+                <a href="{{ route('products.show', $product->slug) }}">
+                    {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name }}
+                </a>
+            </h2>
             <div class="product-rate-cover">
                 <div class="product-rate d-inline-block">
                     <div class="product-rating" style="width: {{ ratingPercent($product->reviews_avg_rating) }}%"></div>
