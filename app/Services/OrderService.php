@@ -9,14 +9,17 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\StoreWallet;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class OrderService
 {
-    static function storeOrder(string $paymentId, float $paidAmount, string $paymentMethod, string $currency, float $currencyRate, string $paymentStatus)
+    static function storeOrder(string $paymentId, float $paidAmount, string $paymentMethod, string $currency, float $currencyRate, string $paymentStatus, ?int $userId = null)
     {
+        $userId = $userId ?? user()->id;
+        
         $cartItems = Cart::with('product.store')
-            ->where('user_id', user()->id)
+            ->where('user_id', $userId)
             ->get()
             ->groupBy(function ($cartItem) {
                 return $cartItem->product->store_id;
@@ -31,30 +34,41 @@ class OrderService
             ];
         });
 
-        $shippingAddressId = Session::get('billing_info')['shipping_address_id'];
-        $billingAddressId = Session::get('billing_info')['billing_address_id'];
+        // Get billing info from session (web) or cache (API)
+        $billingInfo = Session::get('billing_info') ?? Cache::get("billing_info_{$userId}");
+        
+        if (!$billingInfo) {
+            throw new \Exception('Billing information not found');
+        }
 
-        $billingInfo = Address::find($billingAddressId);
-        $shippingInfo = Address::find($shippingAddressId);
+        $shippingAddressId = $billingInfo['shipping_address_id'];
+        $billingAddressId = $billingInfo['billing_address_id'];
 
+        $billingAddress = Address::find($billingAddressId);
+        $shippingAddress = Address::find($shippingAddressId);
+
+        // Get coupon from session (web) or cache (API)
+        $couponData = Session::get('coupon') ?? Cache::get("user_coupon_{$userId}");
 
         foreach ($groupProductByStore as $store) {
 
             /** Store Order */
             $order = new Order();
-            $order->user_id = user()->id;
+            $order->user_id = $userId;
             $order->store_id = $store['store']->id;
             $order->transaction_id = $paymentId;
-            $order->customer_email = user()->email;
-            $order->customer_first_name = user()->name;
-            $order->billing_info = $billingInfo;
-            $order->shipping_info = $shippingInfo;
-            $order->shipping_charge= getShippingCharge();
-            if (Session::has('coupon')) {
+            $order->customer_email = user() ? user()->email : $billingAddress->email;
+            $order->customer_first_name = user() ? user()->name : $billingAddress->name;
+            $order->billing_info = $billingAddress;
+            $order->shipping_info = $shippingAddress;
+            $order->shipping_charge = getShippingCharge();
+            
+            if ($couponData) {
                 $order->has_coupon = true;
-                $order->coupon = Session::get('coupon')['code'];
-                $order->discount = Session::get('coupon')['discount'];
+                $order->coupon = $couponData['code'];
+                $order->discount = $couponData['discount'];
             }
+            
             $order->total = $paidAmount;
             $order->payment_method = $paymentMethod;
             $order->currency = $currency;
@@ -101,14 +115,20 @@ class OrderService
 
         }
 
-        self::clearCart();
+        self::clearCart($userId);
 
     }
 
-    private static function clearCart() : void
+    private static function clearCart(?int $userId = null) : void
     {
-        Cart::where('user_id', user()->id)->delete();
+        $userId = $userId ?? user()->id;
+        
+        Cart::where('user_id', $userId)->delete();
+        
+        // Clear both session and cache
         Session::forget('billing_info');
         Session::forget('coupon');
+        Cache::forget("billing_info_{$userId}");
+        Cache::forget("user_coupon_{$userId}");
     }
 }
